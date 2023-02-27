@@ -24,6 +24,8 @@ const cardapio = [
 
 const map_comida = ['batata frita', 'torresmo']
 
+const secoes = ['Promoção', 'Menu completo', 'Bebidas', 'BBQ', 'Comidas de boteco', 'Lanches', 'Vinhos', 'Feijoada', 'Sobremesas']
+
 
 const cardapioFiltrado = cardapio.filter((comida) => {
   return map_comida.includes(comida.nome)
@@ -37,17 +39,12 @@ function App() {
         <img src={logo} />
       </div>
       <div className='container'>
-        <div className='grid grid-cols-[repeat(10,_1fr)] scrollbar-thin scrollbar-w-1 scrollbar-thumb-vermelho md:gap-5 gap-2 pb-8 mb-12 w-full border-b border-cinza overflow-x-auto'>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Promoção</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Menu completo</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Bebidas</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>BBQ</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Comidas de boteco</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Lanches</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Promoção</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Vinhos</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Feijoada</button>
-          <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2'>Sobremesas</button>
+        <div className='grid grid-cols-[repeat(10,_1fr)] scroll1 scroll2 scroll3 md:gap-5 gap-2 pb-8 mb-12 w-full border-b border-cinza overflow-x-auto'>
+          {
+            secoes.map((secao)=>{              
+              return <button className='flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2 uppercase'>{secao}</button>
+            })
+          }           
         </div>
         <div>
           {
