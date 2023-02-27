@@ -1,13 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       colors: {
-        red:'#c43c46',
-        text_color: 'wheat',        
+        vermelho: '#c43c46',
+        text_color: 'wheat',
+        cinza: '#282828'
       }
     },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      }
+    }
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+],
 }
