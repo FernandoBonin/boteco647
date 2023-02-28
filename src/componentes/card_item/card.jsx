@@ -14,7 +14,7 @@ export const CardItem = ({ item }) => {
             </div>
             <div className='flex flex-col'>
                 <p className='text-lg'>{nome}</p>
-                {descricao && <p className='text-sm'>{descricao}</p>}
+                {descricao && <p className='text-xs'>{descricao}</p>}
                 {
                     promocao &&
                     <div className='flex gap-3 mt-2 text-vermelho'>
