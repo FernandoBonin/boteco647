@@ -1,69 +1,26 @@
-import './App.css';
+import './App.css'
 import logo from './assets/img/logo.png'
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { CategoryButton } from './componentes/category_button/categoryButton'
 import { CardItem } from './componentes/card_item/card'
-import { useState, useEffect } from 'react';
-import clsx from 'clsx';
+import { useState, useEffect } from 'react'
+import clsx from 'clsx'
+import { cardapio, secoes } from './datas/data'
 
-const cardapio = [
-  {
-    nome: 'batata frita',
-    valor: 222.90,
-    descricao: 'uma descrição qualquer',
-    img: 'https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-whistle-spaceman-illustration-design-image_1085246.jpg',
-    categoria: ['Comida de boteco'],
-    secoes: ['Comida de boteco']
-  },
-  {
-    nome: 'torresmo',
-    valor: 15.50,
-    promocao: 11.90,
-    img: 'https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-whistle-spaceman-illustration-design-image_1085246.jpg',
-    categoria: ['Promoção', 'BBQ', 'Comida de boteco'],
-    secoes: ['Promoção', 'BBQ', 'Comida de boteco']
-  },
-  {
-    nome: 'coca-cola',
-    valor: 6,
-    img: 'https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-whistle-spaceman-illustration-design-image_1085246.jpg',
-    categoria: ['Refrigerante'],
-    secoes: ['Bebida']
-  },
-  {
-    nome: 'Polenta',
-    valor: 35.90,
-    img: 'https://png.pngtree.com/element_our/20190523/ourlarge/pngtree-whistle-spaceman-illustration-design-image_1085246.jpg',
-    categoria: ['Comida de boteco'],
-    secoes: ['Comida de boteco']
-  }
-]
-
-const secoes = {
-  'Promoção': ['Promoção'],
-  'Menu completo': [],
-  'Bebida': ['Refrigerante', 'Suco'],
-  'BBQ': ['BBQ'],
-  'Comida de boteco': ['Comida de boteco', 'BBQ'],
-  'Lanche': [],
-  'Vinho': [],
-  'Feijoada': [],
-  'Sobremesa': []
-}
 
 function App() {
 
   const [section, setSection] = useState('Promoção')
 
-  const cardapioFiltrado = cardapio.filter((comida) => {
-    return comida.secoes.includes(section)
+  const cardapioFiltrado = section == 'Menu completo' ? cardapio : cardapio.filter((comida) => {    
+    return comida.secoes.includes(section) 
   })
 
   const cardapioPorCartegoria = cardapioFiltrado.reduce((acc, current) => {
     current.categoria.forEach((categoria) => {
       if (!secoes[section].includes(categoria)) {
         return acc
-      }
+      }      
       if (!acc[categoria]) {
         acc[categoria] = []
       }
@@ -97,7 +54,7 @@ function App() {
           }
         </div>
 
-        <Render cardapio={cardapioPorCartegoria} />
+        <Render cardapio={cardapioPorCartegoria} section={section}/>
 
         <footer className='flex flex-col items-center py-20'>
           <div className='flex gap-5 text-vermelho text-xl'>
@@ -123,7 +80,7 @@ function App() {
 
 export default App;
 
-const Render = ({ cardapio }) => {
+const Render = ({ cardapio, section }) => {
 
   const [selectedCategory, setSelectedCategory] = useState('')
 
@@ -145,8 +102,9 @@ const Render = ({ cardapio }) => {
               onClick={()=>{setSelectedCategory(categoryName == selectedCategory ? '' : categoryName)}}
             >
               {
-                cardapio[categoryName].map((item) => {
-                  return <CardItem key={item.nome} item={item} />
+                cardapio[categoryName].map((item) => {                  
+                  if (section != 'Promoção') item.promocao = null
+                  return <CardItem key={item.nome} item={item} section={section}/>
                 })
               }
             </CategoryButton>

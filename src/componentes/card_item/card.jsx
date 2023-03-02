@@ -1,6 +1,7 @@
-export const CardItem = ({ item }) => {
+export const CardItem = ({ item }) => {    
 
     const {img, nome, descricao, valor, promocao} = item
+    console.log(promocao)
     const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
     const valorPromocaoFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(promocao)
 
