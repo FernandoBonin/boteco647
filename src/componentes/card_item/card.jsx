@@ -10,6 +10,7 @@ export const CardItem = ({ item }) => {
                 <img
                     src={img}
                     className='h-40 w-auto rounded-tr-[35px] rounded-bl-[35px]'
+                    alt={`Imagem ilustrativa do item ${nome}`}
                 />
             </div>
             <div className='flex flex-col'>

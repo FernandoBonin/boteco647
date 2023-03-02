@@ -3,7 +3,7 @@ import logo from './assets/img/logo.png'
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { CategoryButton } from './componentes/category_button/categoryButton'
 import { CardItem } from './componentes/card_item/card'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 
 const cardapio = [
@@ -59,8 +59,6 @@ function App() {
     return comida.secoes.includes(section)
   })
 
-  console.log(cardapioFiltrado)
-
   const cardapioPorCartegoria = cardapioFiltrado.reduce((acc, current) => {
     current.categoria.forEach((categoria) => {
       if (!secoes[section].includes(categoria)) {
@@ -77,7 +75,7 @@ function App() {
   return (
     <div className='bg-[#131415] w-full min-h-screen'>
       <div className='w-full flex justify-center mb-10'>
-        <img src={logo} />
+        <img src={logo} alt='Logo do Boteco 647' />
       </div>
       <div className='container'>
         <div className='grid grid-cols-[repeat(10,_1fr)] scroll1 scroll2 scroll3 md:gap-5 gap-2 pb-8 mb-12 w-full border-b border-cinza overflow-x-auto'>
@@ -85,10 +83,10 @@ function App() {
             Object.keys(secoes).map((secao) => {
               return (
                 <button
-                  onClick={()=>setSection(secao)}
+                  onClick={() => setSection(secao)}
                   key={secao}
                   className={clsx(
-                    section == secao ? 'border-2 border-vermelho' : null,
+                    section === secao ? 'border-2 border-vermelho' : null,
                     'flex items-center justify-center text-text_color w-[100px] h-10 bg-cinza rounded text-xs px-2 uppercase',
                   )}
                 >
@@ -98,21 +96,8 @@ function App() {
             })
           }
         </div>
-        <div className='flex flex-col gap-4'>
-          {
-            Object.keys(cardapioPorCartegoria).map((categoryName) => {
-              return (
-                <CategoryButton key={categoryName} categoria={categoryName}>
-                  {
-                    cardapioPorCartegoria[categoryName].map((item) => {
-                      return <CardItem key={item.nome} item={item} />
-                    })
-                  }
-                </CategoryButton>
-              )
-            })
-          }
-        </div>
+
+        <Render cardapio={cardapioPorCartegoria} />
 
         <footer className='flex flex-col items-center py-20'>
           <div className='flex gap-5 text-vermelho text-xl'>
@@ -137,3 +122,37 @@ function App() {
 }
 
 export default App;
+
+const Render = ({ cardapio }) => {
+
+  const [selectedCategory, setSelectedCategory] = useState('')
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setSelectedCategory('Promoção')
+    },300)
+  },[])
+  
+  return (
+    <div className='flex flex-col gap-4'>
+      {
+        Object.keys(cardapio).map((categoryName) => {
+          return (
+            <CategoryButton
+              key={categoryName}
+              categoria={categoryName}
+              isOpen={categoryName == selectedCategory}
+              onClick={()=>{setSelectedCategory(categoryName == selectedCategory ? '' : categoryName)}}
+            >
+              {
+                cardapio[categoryName].map((item) => {
+                  return <CardItem key={item.nome} item={item} />
+                })
+              }
+            </CategoryButton>
+          )
+        })
+      }
+    </div>
+  )
+}

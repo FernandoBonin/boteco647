@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         vermelho: '#c43c46',
         text_color: 'wheat',
-        cinza: '#282828'
+        cinza: '#282828',
+        azul: '#0c63e4'
       }
     },
     container: {
